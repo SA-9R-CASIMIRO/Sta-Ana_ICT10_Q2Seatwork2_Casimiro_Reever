@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RK's Grading Calculator</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://pyscript.net/releases/2024.1.1/core.css">
+  <script type="module" src="https://pyscript.net/releases/2024.1.1/core.js"></script>
+
+  <style>
+   body {
+  background-image: url('saja boy.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  font-family: 'Arial', sans-serif;
+  color: white;
+  min-height: 100vh;
+  padding: 20px;
+  position: relative;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(0, 183, 255, 0.55), rgba(255, 111, 185, 0.55));
+  pointer-events: none;
+}
+
+.container {
+  background-color: rgba(20, 20, 40, 0.85);
+  border: 2px solid #00e1ff;
+  padding: 30px;
+  border-radius: 12px;
+  max-width: 700px;
+  margin: 40px auto;
+  box-shadow: 0 0 30px rgba(0, 225, 255, 0.6);
+}
+
+h1 {
+  text-align: center;
+  color: #00e1ff;
+  text-shadow: 0 0 10px rgba(0, 225, 255, 0.9);
+  margin-bottom: 10px;
+  font-size: 2rem;
+}
+
+.subtitle {
+  text-align: center;
+  color: #ff6bf2;
+  font-size: 0.9rem;
+  margin-bottom: 25px;
+  font-style: italic;
+}
+
+h2 {
+  font-size: 1.2rem;
+  color: #ffdbff;
+  margin: 20px 0 15px 0;
+  text-align: center;
+  border-bottom: 1px solid rgba(255, 107, 245, 0.4);
+  padding-bottom: 8px;
+}
+
+.input-group-text {
+  background-color: #008db8;
+  color: white;
+  border: 1px solid #00e1ff;
+  font-weight: 500;
+  min-width: 130px;
+}
+
+.form-control {
+  border: 1px solid #00e1ff;
+  background-color: rgba(50, 50, 70, 0.8);
+  color: white;
+}
+
+.form-control::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.btn-calculate {
+  background: linear-gradient(135deg, #00e1ff, #ff6bf2);
+  border: none;
+  width: 100%;
+  margin-top: 25px;
+  padding: 12px;
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: white;
+  border-radius: 6px;
+  transition: all 0.3s;
+}
+
+.btn-calculate:hover {
+  background: linear-gradient(135deg, #ff6bf2, #00e1ff);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(255, 107, 245, 0.4);
+}
+
+#result {
+  margin-top: 25px;
+  padding: 20px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.3rem;
+  background-color: rgba(0, 225, 255, 0.15);
+  border-radius: 8px;
+  border: 2px solid #00e1ff;
+  display: none;
+}
+
+.grade-section {
+  background-color: rgba(0, 0, 20, 0.3);
+  padding: 15px;
+  border-radius: 8px;
+  margin-top: 10px;
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.grade-section::-webkit-scrollbar {
+  width: 8px;
+}
+
+.grade-section::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+}
+
+.grade-section::-webkit-scrollbar-thumb {
+  background: #00e1ff;
+  border-radius: 4px;
+}
+
+.grade-section::-webkit-scrollbar-thumb:hover {
+  background: #ff6bf2;
+}
+
+@keyframes sodaFlash {
+  0% { box-shadow: 0 0 8px #00e1ff; transform: scale(1); }
+  50% { box-shadow: 0 0 25px #ff6bf2; transform: scale(1.05); }
+  100% { box-shadow: 0 0 8px #00e1ff; transform: scale(1); }
+}
+.flash-effect {
+  animation: sodaFlash 0.4s ease-in-out;
+}
+
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>RK's Grading Calculator</h1>
+    <div class="subtitle">[Saja boys Themed]</div>
+
+    <div class="mb-4">
+      <div class="input-group">
+        <span class="input-group-text">First Name</span>
+        <input type="text" class="form-control" id="firstName" placeholder="Enter first name">
+      </div>
+      
+      <div class="input-group">
+        <span class="input-group-text">Last Name</span>
+        <input type="text" class="form-control" id="lastName" placeholder="Enter last name">
+      </div>
+
+       <div class="input-group">
+        <span class="input-group-text">Grade and Section</span>
+        <input type="text" class="form-control" id="gradelevelandsection" placeholder="Enter Grade & Section">
+      </div>
+    
+    </div>
+
+    
+
+    <h2>Enter Your 2nd Quarter Grades</h2>
+    
+    <div class="grade-section">
+      <div class="input-group">
+        <span class="input-group-text">Science</span>
+        <input type="number" class="form-control grade-input" id="science" placeholder="0-100" min="0" max="100">
+      </div>
+
+      <div class="input-group">
+        <span class="input-group-text">Math</span>
+        <input type="number" class="form-control grade-input" id="math" placeholder="0-100" min="0" max="100">
+      </div>
+
+      <div class="input-group">
+        <span class="input-group-text">English</span>
+        <input type="number" class="form-control grade-input" id="english" placeholder="0-100" min="0" max="100">
+      </div>
+
+      <div class="input-group">
+        <span class="input-group-text">Filipino</span>
+        <input type="number" class="form-control grade-input" id="filipino" placeholder="0-100" min="0" max="100">
+      </div>
+
+      <div class="input-group">
+        <span class="input-group-text">Social Studies</span>
+        <input type="number" class="form-control grade-input" id="socialStudies" placeholder="0-100" min="0" max="100">
+      </div>
+
+      <div class="input-group">
+        <span class="input-group-text">V.E</span>
+        <input type="number" class="form-control grade-input" id="ve" placeholder="0-100" min="0" max="100">
+      </div>
+
+      <div class="input-group">
+        <span class="input-group-text">Music</span>
+        <input type="number" class="form-control grade-input" id="music" placeholder="0-100" min="0" max="100">
+      </div>
+
+      <div class="input-group">
+        <span class="input-group-text">P.E</span>
+        <input type="number" class="form-control grade-input" id="pe" placeholder="0-100" min="0" max="100">
+      </div>
+
+      <div class="input-group">
+        <span class="input-group-text">L.T</span>
+        <input type="number" class="form-control grade-input" id="lt" placeholder="0-100" min="0" max="100">
+      </div>
+
+      <div class="input-group">
+        <span class="input-group-text">T.L.E</span>
+        <input type="number" class="form-control grade-input" id="tle" placeholder="0-100" min="0" max="100">
+      </div>
+
+      <div class="input-group">
+        <span class="input-group-text">I.C.T</span>
+        <input type="number" class="form-control grade-input" id="ict" placeholder="0-100" min="0" max="100">
+      </div>
+    </div>
+
+    <button class="btn-calculate" id="calculateBtn">Calculate Everything</button>
+
+    <div id="result"></div>
+  </div>
+  <script type="py" src="main.py"></script>
+</body>
+</html>
